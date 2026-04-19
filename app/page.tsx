@@ -8,6 +8,7 @@ import Experience from "@/components/sections/Experience";
 import Skills from "@/components/sections/Skills";
 import Projects from "@/components/sections/Projects";
 import Testimonials from "@/components/sections/Testimonials";
+import Brands from "@/components/sections/Brands";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 
@@ -30,6 +31,7 @@ export default function Home() {
 
       <Navbar />
       <Hero />
+      <Brands />
       <Summary />
       <Experience />
       <Skills />
