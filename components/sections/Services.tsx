@@ -1,25 +1,30 @@
 import React from "react";
 import { FaCode, FaRocket, FaTerminal, FaLayerGroup } from "react-icons/fa";
+import { HiOutlineLightBulb } from "react-icons/hi2";
 
 const services = [
   {
     title: "Enterprise ERP Solutions",
-    description: "Architecting scalable and robust ERP modules that streamline complex business processes and real-time operations.",
+    description:
+      "Architecting scalable and robust ERP modules that streamline complex business processes and real-time operations.",
     icon: <FaLayerGroup className="w-8 h-8" />,
   },
   {
     title: "Full-Stack Development",
-    description: "Building production-grade SaaS applications from scratch using modern tech stacks like Next.js, Node.js, and TypeScript.",
+    description:
+      "Building production-grade SaaS applications from scratch using modern tech stacks like Next.js, Node.js, and TypeScript.",
     icon: <FaCode className="w-8 h-8" />,
   },
   {
     title: "Performance Optimization",
-    description: "Enhancing web performance through advanced code-splitting, lazy loading, and efficient API orchestration.",
+    description:
+      "Enhancing web performance through advanced code-splitting, lazy loading, and efficient API orchestration.",
     icon: <FaRocket className="w-8 h-8" />,
   },
   {
     title: "Custom UI/UX Implementation",
-    description: "Translating complex Figma designs into interactive, pixel-perfect, and highly responsive user interfaces.",
+    description:
+      "Translating complex Figma designs into interactive, pixel-perfect, and highly responsive user interfaces.",
     icon: <FaTerminal className="w-8 h-8" />,
   },
 ];
@@ -27,19 +32,22 @@ const services = [
 export default function Services() {
   return (
     <section id="services" className="max-w-7xl mx-auto py-32 px-8 relative">
-      <div className="grid lg:grid-cols-2 gap-16 items-center mb-24">
+      <div className="grid lg:grid-cols-2 gap-16 items-center">
         <div className="reveal">
-          <h2 className="font-heading text-4xl font-bold uppercase mb-8">
-            Core <span className="text-white/40 italic">Offerings.</span>
+          <h2 className="font-heading text-4xl font-bold uppercase mb-20 flex items-center gap-4">
+            <span className="text-2xl">
+              <HiOutlineLightBulb />
+            </span>
+            What I Offer.
           </h2>
-          <p className="text-white/60 leading-relaxed text-lg max-w-xl">
-            I specialize in building high-performance digital products that solve real-world business challenges. Here's how I can help your project succeed.
-          </p>
         </div>
-        
-        <div className="flex justify-end reveal" style={{ transitionDelay: "0.2s" }}>
+
+        {/* <div
+          className="flex justify-end reveal"
+          style={{ transitionDelay: "0.2s" }}
+        >
           <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-        </div>
+        </div> */}
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
