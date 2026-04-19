@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { FaTerminal } from "react-icons/fa";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
+import Button from "../ui/Button";
 
 const navLinks = [
   { href: "#about", label: "About" },
@@ -55,14 +56,15 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <Link
+            <Button
               href="#contact"
+              variant="outline"
+              size="sm"
               data-cursor="hover"
               onClick={(e) => handleScroll(e, "#contact")}
-              className="px-6 py-2 border border-white text-[10px] font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all"
             >
               Start Collaboration
-            </Link>
+            </Button>
           </div>
 
           {/* Hamburger - Sirf open hone tak dikhta hai */}
@@ -103,13 +105,14 @@ export default function Navbar() {
             {link.label}
           </Link>
         ))}
-        <Link
+        <Button
           href="#contact"
+          variant="outline"
+          size="md"
           onClick={(e) => handleScroll(e, "#contact")}
-          className="px-8 py-4 border border-white text-[10px] font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all"
         >
           Start Collaboration
-        </Link>
+        </Button>
       </div>
     </>
   );

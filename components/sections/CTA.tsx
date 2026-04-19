@@ -1,5 +1,5 @@
-import React from "react";
 import { FaPaperPlane } from "react-icons/fa";
+import Button from "../ui/Button";
 
 export default function CTA() {
   return (
@@ -17,23 +17,22 @@ export default function CTA() {
         </p>
         
         <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
-          <a
+          <Button
             href="#contact"
-            className="group relative px-12 py-5 bg-white text-black font-bold uppercase tracking-widest overflow-hidden transition-transform hover:scale-105 active:scale-95"
+            variant="solid"
+            size="lg"
+            icon={<FaPaperPlane className="w-4 h-4" />}
           >
-            <span className="relative z-10 flex items-center gap-3">
-              Start a Conversation
-              <FaPaperPlane className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-            </span>
-            <div className="absolute inset-0 bg-black/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-          </a>
+            Start a Conversation
+          </Button>
           
-          <a
+          <Button
             href="mailto:contact@example.com"
-            className="px-12 py-5 border border-white/20 hover:border-white text-white font-bold uppercase tracking-widest transition-colors active:scale-95"
+            variant="outline"
+            size="lg"
           >
             Email Me.
-          </a>
+          </Button>
         </div>
       </div>
     </section>

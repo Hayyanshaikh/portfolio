@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { FaEnvelope, FaPhoneAlt, FaPaperPlane } from "react-icons/fa";
+import Button from "../ui/Button";
 
 const contactLinks = [
   {
@@ -111,14 +112,15 @@ export default function Contact() {
                 className={`${inputClass} resize-none`}
               />
 
-              <button
-                data-cursor="hover"
+              <Button
+                size="full"
+                variant="solid"
                 onClick={handleSubmit}
-                className="w-full bg-white text-black py-6 text-[10px] font-black uppercase tracking-[0.5em] hover:bg-[#666] hover:text-white transition-all flex items-center justify-center gap-3"
+                icon={<FaPaperPlane className="h-4 w-4" />}
+                data-cursor="hover"
               >
                 Submit Briefing
-                <FaPaperPlane className="h-4 w-4" />
-              </button>
+              </Button>
             </div>
           </div>
         </div>
