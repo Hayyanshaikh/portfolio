@@ -30,7 +30,9 @@ const ExperienceCard = ({ exp, index }: Props) => {
         <div className="flex items-center gap-2 mb-4">
           <span
             className={`w-2 h-2 rounded-full ${
-              exp.active ? "bg-white" : "bg-white/20"
+              exp.active
+                ? "bg-green-500 shadow shadow-green-300"
+                : "bg-white/20"
             }`}
           ></span>
           <span className="text-[10px] font-bold text-white uppercase tracking-[0.3em]">
