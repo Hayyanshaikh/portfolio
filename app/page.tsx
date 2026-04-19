@@ -3,12 +3,14 @@
 import { useReveal } from "@/components/useReveal";
 import Navbar from "@/components/sections/Navbar";
 import Hero from "@/components/sections/Hero";
+import Brands from "@/components/sections/Brands";
 import Summary from "@/components/sections/Summary";
 import Experience from "@/components/sections/Experience";
+import Services from "@/components/sections/Services";
 import Skills from "@/components/sections/Skills";
 import Projects from "@/components/sections/Projects";
 import Testimonials from "@/components/sections/Testimonials";
-import Brands from "@/components/sections/Brands";
+import CTA from "@/components/sections/CTA";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 
@@ -34,9 +36,11 @@ export default function Home() {
       <Brands />
       <Summary />
       <Experience />
+      <Services />
       <Skills />
       <Projects />
       <Testimonials />
+      <CTA />
       <Contact />
       <Footer />
     </>
