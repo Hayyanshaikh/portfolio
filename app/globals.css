@@ -20,7 +20,6 @@ body {
 
 html {
   /* scroll-behavior: smooth; */
-  cursor: none !important;
 }
 
 ::-webkit-scrollbar {
@@ -213,15 +212,15 @@ body {
 /* Glass Card */
 .glass-card {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
   overflow: hidden;
 }
 
 .glass-card:hover {
-  border-color: #444;
-  transform: translateY(-10px);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
 }
 
 .glass-card::after {
@@ -296,3 +295,22 @@ body {
 .text-muted {
   color: var(--muted);
 }
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  display: block;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}
