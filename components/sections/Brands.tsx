@@ -19,11 +19,12 @@ export default function Brands() {
           Trusted by & Collaborated with
         </p>
       </div>
-      
+
       <div className="relative flex overflow-x-hidden">
         <div className="animate-marquee whitespace-nowrap flex items-center">
           {[...brands, ...brands].map((brand, index) => (
             <span
+              data-cursor="hover"
               key={index}
               className="mx-12 text-4xl md:text-6xl font-heading font-bold text-white/20 hover:text-white/60 transition-colors cursor-default select-none"
             >
@@ -32,12 +33,6 @@ export default function Brands() {
           ))}
         </div>
       </div>
-
-      <style jsx>{`
-        .animate-marquee {
-          animation: marquee 30s linear infinite;
-        }
-      `}</style>
     </section>
   );
 }
