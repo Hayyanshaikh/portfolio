@@ -24,8 +24,9 @@ const Button: React.FC<ButtonProps> = ({
   type = "button",
   ...props
 }) => {
-  const baseStyles = "group relative font-bold uppercase tracking-[0.2em] inline-flex items-center justify-center gap-3 transition-all duration-500 overflow-hidden select-none active:scale-95";
-  
+  const baseStyles =
+    "group relative font-bold uppercase tracking-[0.2em] inline-flex items-center justify-center gap-3 transition-all duration-500 overflow-hidden select-none active:scale-95";
+
   const variants = {
     solid: "bg-white text-black",
     outline: "border border-white/20 text-white hover:border-white",
@@ -43,19 +44,19 @@ const Button: React.FC<ButtonProps> = ({
   const content = (
     <>
       {/* Unified Hover Background Effect */}
-      <div 
+      <div
         className={`absolute inset-0 transition-transform duration-500 ease-out translate-y-full group-hover:translate-y-0 z-0
-          ${variant === 'solid' ? 'bg-black' : 'bg-white'}`} 
+          ${variant === "solid" ? "bg-black/90" : "bg-white"}`}
       />
-      
+
       {/* Content Container */}
-      <span className={`relative z-10 flex items-center gap-3 transition-all duration-500 group-hover:-translate-y-0.5
-        ${variant === 'outline' ? 'group-hover:text-black' : 'group-hover:text-white'}`}>
+      <span
+        className={`relative z-10 flex items-center gap-2 transition-all duration-500
+        ${variant === "outline" ? "group-hover:text-black" : "group-hover:text-white"}`}
+      >
         {children}
         {icon && (
-          <span className="transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-0.5">
-            {icon}
-          </span>
+          <span className="transition-transform duration-500">{icon}</span>
         )}
       </span>
     </>
@@ -63,7 +64,12 @@ const Button: React.FC<ButtonProps> = ({
 
   if (href) {
     return (
-      <Link href={href} className={combinedClasses} onClick={onClick} {...props}>
+      <Link
+        href={href}
+        className={combinedClasses}
+        onClick={onClick}
+        {...props}
+      >
         {content}
       </Link>
     );
