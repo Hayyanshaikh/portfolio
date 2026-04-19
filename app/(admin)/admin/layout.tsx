@@ -16,7 +16,7 @@ export default function AdminLayout({
   }
 
   return (
-    <div className="flex min-h-screen bg-bg text-white relative">
+    <div className="flex h-screen overflow-hidden bg-bg text-white relative">
       <div className="bg-container">
         <div className="bg-grid opacity-30"></div>
         <div className="orb orb-1 opacity-10"></div>

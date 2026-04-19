@@ -34,14 +34,14 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <div className="w-60 bg-surface border-r border-white/5 h-screen flex flex-col">
+    <div className="w-60 flex-shrink-0 bg-surface border-r border-white/5 h-screen flex flex-col">
       <div className="p-4 border-b border-white/5">
         <h1 className="text-sm font-heading font-bold tracking-widest text-white uppercase opacity-70">
           Admin
         </h1>
       </div>
 
-      <nav className="flex-1 p-2 space-y-1">
+      <nav className="flex-1 p-2 space-y-1 overflow-y-auto custom-scrollbar">
         {menuItems.map((item) => {
           const isActive = pathname === item.href;
           const Icon = item.icon;
