@@ -8,7 +8,7 @@ export default function WebsiteLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="cursor-none">
+    <div className="lg:cursor-none cursor-default">
       <SmoothScrollBar>
         <SmoothScroll>
           <CustomCursor />
