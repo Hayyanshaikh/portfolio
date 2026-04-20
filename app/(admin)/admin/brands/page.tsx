@@ -7,6 +7,7 @@ import Button from "@/components/ui/Button";
 import PageHeader from "@/components/admin/PageHeader";
 import FieldGroup from "@/components/admin/FieldGroup";
 import InputField from "@/components/admin/InputField";
+import DataTable, { ColumnDef } from "@/components/admin/DataTable";
 
 const initialBrands = [
   "Viabletree",
@@ -29,12 +30,59 @@ export default function BrandsPage() {
   };
 
   const handleAddBrand = () => {
+    const newIndex = brands.length;
     setBrands([...brands, ""]);
+    setTimeout(() => {
+      document.getElementById(`brand-input-${newIndex}`)?.focus();
+    }, 50);
   };
 
   const handleRemoveBrand = (index: number) => {
     setBrands(brands.filter((_, i) => i !== index));
   };
+
+  const columns: ColumnDef<string>[] = [
+    {
+      key: "sno",
+      header: "S.No",
+      headerClassName: "w-24",
+      cellClassName: "text-sm font-mono text-muted",
+      render: (_, index) => String(index + 1).padStart(2, "0"),
+    },
+    {
+      key: "name",
+      header: "Brand Name",
+      render: (brand, index) => (
+        <input
+          id={`brand-input-${index}`}
+          type="text"
+          value={brand}
+          onChange={(e) => {
+            const newBrands = [...brands];
+            newBrands[index] = e.target.value;
+            setBrands(newBrands);
+          }}
+          className="w-full bg-transparent border-b border-transparent focus:border-white/20 outline-none text-white transition-colors pb-1 placeholder:text-white/20"
+          placeholder="Enter brand name..."
+        />
+      ),
+    },
+    {
+      key: "actions",
+      header: "Actions",
+      headerClassName: "text-right w-28",
+      cellClassName: "text-right",
+      render: (_, index) => (
+        <button
+          onClick={() => handleRemoveBrand(index)}
+          className="text-muted hover:text-red-500 transition-colors p-2 inline-flex"
+          title="Remove Brand"
+        >
+          <HiX className="text-lg" />
+        </button>
+      ),
+    },
+  ];
 
   return (
     <div className="animate-reveal space-y-10 pb-20">
@@ -53,50 +101,29 @@ export default function BrandsPage() {
         }
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="space-y-8">
         {/* Section Settings */}
-        <div className="space-y-8">
-          <FieldGroup title="Section configuration" icon={MdBusiness}>
-            <InputField
-              label="Section Heading"
-              defaultValue="Trusted by & Collaborated with"
-            />
-          </FieldGroup>
-        </div>
+        <InputField
+          label="Section Heading"
+          defaultValue="Trusted by & Collaborated with"
+        />
 
-        {/* Brand Entries */}
-        <div className="space-y-8">
-          <FieldGroup title="Brand Entries" icon={MdBusiness}>
-            <div className="space-y-4">
-              {brands.map((brand, index) => (
-                <div key={index} className="flex gap-4 items-end">
-                  <div className="flex-1">
-                    <InputField
-                      label={`Brand Name ${index + 1}`}
-                      placeholder="e.g. NextGen ERP"
-                      defaultValue={brand}
-                    />
-                  </div>
-                  <button
-                    onClick={() => handleRemoveBrand(index)}
-                    className="h-[42px] px-4 bg-white/5 border border-white/5 hover:bg-red-500/10 hover:border-red-500/30 text-muted hover:text-red-500 transition-all rounded-none flex items-center justify-center"
-                    title="Remove Brand"
-                  >
-                    <HiX className="text-lg" />
-                  </button>
-                </div>
-              ))}
-            </div>
-
+        {/* Brand Entries Container */}
+        <FieldGroup
+          title="Brand Entries"
+          icon={MdBusiness}
+          rightAction={
             <button
               onClick={handleAddBrand}
-              className="w-full flex items-center justify-center gap-2 mt-4 bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/20 text-[10px] font-bold uppercase tracking-widest text-muted hover:text-white px-4 py-4 transition-all"
+              className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-muted hover:text-white transition-colors bg-white/5 border border-white/5 hover:border-white/20 px-3 py-1.5"
             >
               <MdAdd className="text-lg" />
               Add Partner
             </button>
-          </FieldGroup>
-        </div>
+          }
+        >
+          <DataTable columns={columns} data={brands} />
+        </FieldGroup>
       </div>
     </div>
   );
