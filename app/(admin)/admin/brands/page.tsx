@@ -85,7 +85,7 @@ export default function BrandsPage() {
   ];
 
   return (
-    <div className="animate-reveal space-y-10 pb-20">
+    <div className="animate-reveal space-y-4">
       <PageHeader
         title="Brand Collaborations"
         subtitle="Trusted Partners"
@@ -101,7 +101,7 @@ export default function BrandsPage() {
         }
       />
 
-      <div className="space-y-8">
+      <div className="space-y-6">
         {/* Section Settings */}
         <InputField
           label="Section Heading"

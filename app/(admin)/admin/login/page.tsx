@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { ADMIN_EMAIL, ADMIN_PASSWORD } from "@/app/constant";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -13,7 +14,7 @@ export default function LoginPage() {
     e.preventDefault();
 
     // HARDCODED CREDENTIALS - User should update these later
-    if (email === "hayyan@admin" && password === "hayyan@123") {
+    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
       // For demo, we just set a cookie or use something the middleware can check
       // Real auth would use NextAuth or JWT
       document.cookie = "admin_auth=true; path=/";

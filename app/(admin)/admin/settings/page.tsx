@@ -22,7 +22,7 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="animate-reveal space-y-10 pb-20">
+    <div className="animate-reveal space-y-6">
       <PageHeader
         title="System Settings"
         subtitle="Global Preferences"
