@@ -11,6 +11,7 @@ interface ButtonProps {
   className?: string;
   type?: "button" | "submit" | "reset";
   "data-cursor"?: string;
+  target?: "_blank" | "_self" | "_parent" | "_top";
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -22,6 +23,7 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   className = "",
   type = "button",
+  target = "_self",
   ...props
 }) => {
   const baseStyles =
@@ -68,6 +70,7 @@ const Button: React.FC<ButtonProps> = ({
         href={href}
         className={combinedClasses}
         onClick={onClick}
+        target={target}
         {...props}
       >
         {content}
