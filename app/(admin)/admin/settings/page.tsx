@@ -11,7 +11,7 @@ import {
 import Button from "@/components/ui/Button";
 import PageHeader from "@/components/admin/PageHeader";
 import FieldGroup from "@/components/admin/FieldGroup";
-import InputField from "@/components/admin/InputField";
+import InputField from "@/components/ui/InputField";
 
 export default function SettingsPage() {
   const [isSaving, setIsSaving] = useState(false);

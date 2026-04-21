@@ -6,7 +6,7 @@ import { HiX } from "react-icons/hi";
 import Button from "@/components/ui/Button";
 import PageHeader from "@/components/admin/PageHeader";
 import FieldGroup from "@/components/admin/FieldGroup";
-import InputField from "@/components/admin/InputField";
+import InputField from "@/components/ui/InputField";
 import DataTable, { ColumnDef } from "@/components/admin/DataTable";
 
 const initialBrands = [

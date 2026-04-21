@@ -1,69 +1,65 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { createPortal } from "react-dom";
 import { IoClose } from "react-icons/io5";
 import Button from "./Button";
+import { FiAlertTriangle, FiCheckSquare, } from "react-icons/fi";
+import { TbAlertCircle } from "react-icons/tb";
+import { FaRegCheckCircle } from "react-icons/fa";
+import IconButton from "./IconButton";
 
 interface ModalProps {
   form?: string;
   title?: string;
   isOpen: boolean;
   buttonText?: string;
+  description?: string;
   onClose?: () => void;
   onConfirm?: () => void;
-  children: React.ReactNode;
-  showCloseButton?: boolean;
+  children?: React.ReactNode;
   size?: "sm" | "md" | "lg" | "xl" | "full";
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  footerAction?: React.ReactNode;
+  type?: "default" | "success" | "error" | "warning";
 }
 
 const Modal: React.FC<ModalProps> = ({
   form,
-  title,
+  title = "Modal Title",
   isOpen,
-  onClose,
   children,
   setIsOpen,
+  onClose,
   onConfirm,
   size = "md",
-  buttonText = "Yes",
-  showCloseButton = true,
+  description,
+  buttonText = "Save",
+  footerAction,
+  type = "default",
 }) => {
-  const [isMounted, setIsMounted] = useState(false);
-  const [shouldRender, setShouldRender] = useState(false);
-  const [animationActive, setAnimationActive] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  const [show, setShow] = useState(false);
+  const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
-      setShouldRender(true);
+      setShow(true);
+      setTimeout(() => setAnimate(true), 10);
       document.body.style.overflow = "hidden";
-      const timer = setTimeout(() => {
-        setAnimationActive(true);
-      }, 10);
-      return () => clearTimeout(timer);
     } else {
-      setAnimationActive(false);
-      const timer = setTimeout(() => {
-        setShouldRender(false);
-        document.body.style.overflow = "unset";
+      setAnimate(false);
+      setTimeout(() => {
+        setShow(false);
+        document.body.style.overflow = "auto";
       }, 300);
-      return () => clearTimeout(timer);
     }
   }, [isOpen]);
 
+  if (!show) return null;
+
   const handleClose = () => {
-    if (onClose) {
-      onClose();
-    }
+    onClose?.();
     setIsOpen(false);
   };
-
-  if (!isMounted || !shouldRender) return null;
 
   const sizeClasses = {
     sm: "max-w-sm",
@@ -73,76 +69,62 @@ const Modal: React.FC<ModalProps> = ({
     full: "max-w-[95vw] h-[90vh]",
   };
 
-  return createPortal(
-    <div
-      className={`fixed inset-0 z-[9999] flex items-center justify-center p-4 transition-all duration-300 ease-out ${
-        animationActive ? "opacity-100" : "opacity-0 pointer-events-none"
-      }`}
-    >
-      {/* Backdrop */}
-      <div
-        className={`absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity duration-300 ${
-          animationActive ? "opacity-100" : "opacity-0"
-        }`}
-        onClick={handleClose}
-      />
+  const iconMap = {
+    success: <FaRegCheckCircle size={20} className="text-green-500" />,
+    error: <TbAlertCircle size={20} className="text-red-500" />,
+    warning: <FiAlertTriangle size={20} className="text-yellow-500" />,
+  };
 
-      {/* Modal Content */}
+  return (
+    <div
+      className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-300 ${animate ? "opacity-100" : "opacity-0"
+        } bg-black/70 backdrop-blur-sm`}
+      onClick={handleClose}
+    >
       <div
-        className={`relative flex flex-col w-full ${
-          sizeClasses[size]
-        } bg-[var(--surface)] border border-white/10 rounded-sm overflow-hidden shadow-2xl transition-all duration-300 ease-out ${
-          animationActive
-            ? "scale-100 translate-y-0"
-            : "scale-95 translate-y-4 shadow-none"
-        }`}
+        onClick={(e) => e.stopPropagation()}
+        className={`w-full ${sizeClasses[size]} bg-[var(--surface)] border border-white/10 rounded-sm shadow-xl transition-all duration-300 ${animate ? "scale-100 translate-y-0" : "scale-95 translate-y-4"
+          }`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-2 border-b border-white/5 bg-white/[0.02]">
-          {title ? (
-            <h3 className="text-xl font-heading font-bold tracking-tight text-white">
-              {title}
-            </h3>
-          ) : (
-            <div />
-          )}
-          {showCloseButton && (
-            <button
-              onClick={handleClose}
-              className="p-2 text-white/40 hover:text-white hover:bg-white/5 rounded-full transition-all duration-300 group"
-              aria-label="Close modal"
-            >
-              <IoClose
-                size={24}
-                className="group-active:scale-90 transition-transform"
-              />
-            </button>
-          )}
+        <div className="flex items-center justify-between px-6 py-3 border-b border-white/10">
+          <h3 className="text-white font-semibold flex items-center gap-2">
+            {type !== "default" && <span>{iconMap[type]}</span>}
+            {title}
+          </h3>
+
+          <IconButton variant="ghost" icon={<IoClose size={20} />} onClick={handleClose} />
         </div>
 
         {/* Body */}
-        <div className="p-6 flex-1 max-h-[75vh] overflow-y-auto custom-scrollbar">
-          {children}
+        <div className="p-6 max-h-[70vh] overflow-y-auto">
+          {children ? children : <p className="text-sm text-white/50">{description}</p>}
         </div>
 
         {/* Footer */}
-        <div className="flex items-center gap-3 justify-end px-6 py-2 border-t border-white/5 bg-white/[0.02]">
-          <Button onClick={handleClose} variant="outline" size="sm">
-            Close
-          </Button>
-          <Button
-            size="sm"
-            form={form}
-            variant="solid"
-            onClick={onConfirm}
-            type={form ? "submit" : "button"}
-          >
-            {buttonText}
-          </Button>
+        <div className="flex items-center justify-between px-6 py-3 border-t border-white/10">
+          <div>{footerAction}</div>
+
+          <div className="flex gap-3">
+            {
+              type !== "success" && (
+                <Button size="xs" variant="outline" onClick={handleClose}>
+                  {type === "warning" ? "No" : "Close"}
+                </Button>)
+            }
+
+            <Button
+              size="xs"
+              form={form}
+              onClick={onConfirm}
+              type={form ? "submit" : "button"}
+            >
+              {buttonText}
+            </Button>
+          </div>
         </div>
       </div>
-    </div>,
-    document.body,
+    </div>
   );
 };
 

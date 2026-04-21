@@ -17,11 +17,6 @@ body {
   width: 100%;
   overflow-x: hidden;
 }
-
-html {
-  /* scroll-behavior: smooth; */
-}
-
 ::-webkit-scrollbar {
   display: none;
 }
@@ -313,4 +308,4 @@ body {
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #333;
-}
+}

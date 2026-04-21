@@ -9,7 +9,7 @@ interface ButtonProps {
   icon?: React.ReactNode;
   children: React.ReactNode;
   variant?: "solid" | "outline";
-  size?: "sm" | "md" | "lg" | "full";
+  size?: "xs" | "sm" | "md" | "lg" | "full";
   onClick?: (e: React.MouseEvent) => void;
   type?: "button" | "submit" | "reset";
   target?: "_blank" | "_self" | "_parent" | "_top";
@@ -37,6 +37,7 @@ const Button: React.FC<ButtonProps> = ({
   };
 
   const sizes = {
+    xs: "px-4 py-2 text-[9px]",
     sm: "px-6 py-3 text-[10px]",
     md: "px-8 py-4 text-[10px]",
     lg: "px-12 py-5 text-[11px]",
@@ -47,16 +48,20 @@ const Button: React.FC<ButtonProps> = ({
 
   const content = (
     <>
-      {/* Unified Hover Background Effect */}
+      {/* Hover Background */}
       <div
-        className={`absolute inset-0 transition-transform duration-500 ease-out translate-y-full group-hover:translate-y-0 z-0
-          ${variant === "solid" ? "bg-black/90" : "bg-white"}`}
+        className={`absolute inset-0 transition-transform duration-500 ease-out translate-y-full group-hover:translate-y-0 z-0 ${
+          variant === "solid" ? "bg-black/90" : "bg-white"
+        }`}
       />
 
-      {/* Content Container */}
+      {/* Content */}
       <span
-        className={`relative z-10 flex items-center gap-2 transition-all duration-500
-        ${variant === "outline" ? "group-hover:text-black" : "group-hover:text-white"}`}
+        className={`relative z-10 flex items-center gap-2 transition-all duration-500 ${
+          variant === "outline"
+            ? "group-hover:text-black"
+            : "group-hover:text-white"
+        }`}
       >
         {children}
         {icon && (

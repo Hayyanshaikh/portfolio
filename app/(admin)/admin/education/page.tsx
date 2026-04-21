@@ -1,15 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdSave, MdSchool, MdAdd } from "react-icons/md";
-import { HiX } from "react-icons/hi";
 import Button from "@/components/ui/Button";
 import PageHeader from "@/components/admin/PageHeader";
 import FieldGroup from "@/components/admin/FieldGroup";
-import InputField from "@/components/admin/InputField";
+import InputField from "@/components/ui/InputField";
 import DataTable, { ColumnDef } from "@/components/admin/DataTable";
 import Modal from "@/components/ui/Modal";
 import Form from "@/components/ui/Form";
+import ActionButtons from "@/components/ui/ActionButtons";
 
 interface EducationEntry {
   id: string;
@@ -33,42 +33,53 @@ const initialEducation: EducationEntry[] = [
   },
 ];
 
-export default function EducationPage() {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [isSaving, setIsSaving] = useState<boolean>(false);
-  const [education, setEducation] =
-    useState<EducationEntry[]>(initialEducation);
+const EducationPage = () => {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState<boolean>(false);
+  const [selectedEntry, setSelectedEntry] = useState<EducationEntry | null>(
+    null,
+  );
+  const [education, setEducation] = useState<EducationEntry[]>([]);
 
-  const handleSave = () => {
-    setIsSaving(true);
-    setTimeout(() => setIsSaving(false), 1500);
+  useEffect(() => {
+    setEducation(initialEducation);
+  }, [initialEducation]);
+
+  const handleAddEntryModal = () => {
+    setSelectedEntry(null);
+    setIsModalOpen(true);
   };
 
-  const handleAddEntry = () => {
-    // const newEntry: EducationEntry = {
-    //   id: Math.random().toString(36).substr(2, 9),
-    //   institution: "",
-    //   degree: "",
-    //   duration: "",
-    // };
-    // setEducation([...education, newEntry]);
+  const handleEditEntry = (entry: EducationEntry) => {
+    setSelectedEntry(entry);
     setIsModalOpen(true);
   };
 
   const handleRemoveEntry = (id: string) => {
-    setEducation(education.filter((entry) => entry.id !== id));
+    // TODO: Remove entry from database
   };
 
-  const handleUpdateEntry = (
-    id: string,
-    field: keyof EducationEntry,
-    value: string,
-  ) => {
-    setEducation(
-      education.map((entry) =>
-        entry.id === id ? { ...entry, [field]: value } : entry,
-      ),
-    );
+  const handleSave = (values: Record<string, FormDataEntryValue>) => {
+    const payload = {
+      degree: values.degree || "",
+      duration: values.duration || "",
+      institution: values.institution || "",
+    };
+
+    if (selectedEntry) {
+      handleUpdateEntry(payload);
+    } else {
+      handleAddEntry(payload);
+    }
+  };
+
+  const handleAddEntry = (values: Record<string, FormDataEntryValue>) => {
+    // TODO: Add entry in database
+  };
+
+  const handleUpdateEntry = (values: Record<string, FormDataEntryValue>) => {
+    // TODO: Update entry in database
   };
 
   const columns: ColumnDef<EducationEntry>[] = [
@@ -92,19 +103,20 @@ export default function EducationPage() {
       header: "Duration",
       headerClassName: "w-40",
     },
+
     {
       key: "actions",
       header: "Actions",
-      headerClassName: "text-right w-20",
+      headerClassName: "text-right w-24",
       cellClassName: "text-right",
       render: (entry) => (
-        <button
-          onClick={() => handleRemoveEntry(entry.id)}
-          className="text-muted hover:text-red-500 transition-colors p-2 inline-flex"
-          title="Remove Entry"
-        >
-          <HiX className="text-lg" />
-        </button>
+        <ActionButtons
+          onEdit={() => handleEditEntry(entry)}
+          onDelete={() => {
+            setSelectedEntry(entry);
+            setIsDeleteModalOpen(true);
+          }}
+        />
       ),
     },
   ];
@@ -116,19 +128,22 @@ export default function EducationPage() {
         subtitle="Academic Foundation"
         action={
           <Button
-            onClick={handleSave}
             variant="solid"
+            form="sectionForm"
+            type="submit"
             size="sm"
             icon={<MdSave className="text-sm" />}
           >
-            {isSaving ? "Saving..." : "Deploy Changes"}
+            Save
           </Button>
         }
       />
 
-      <div className="space-y-6">
+      <Form form="sectionForm" onSubmit={() => { }} className="space-y-6">
         {/* Section Settings */}
         <InputField
+          isRequired
+          name="sectionHeading"
           label="Section Heading"
           defaultValue="Academic Foundation."
         />
@@ -138,37 +153,91 @@ export default function EducationPage() {
           title="Education Certificates"
           icon={MdSchool}
           rightAction={
-            <button
-              onClick={handleAddEntry}
-              className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-muted hover:text-white transition-colors bg-white/5 border border-white/5 hover:border-white/20 px-3 py-1.5"
+            <Button
+              variant="outline"
+              size="xs"
+              onClick={handleAddEntryModal}
+              icon={<MdAdd className="text-sm" />}
             >
-              <MdAdd className="text-lg" />
               Add Record
-            </button>
+            </Button>
           }
         >
           <DataTable columns={columns} data={education} />
         </FieldGroup>
-      </div>
+      </Form>
 
       <Modal
         size="xl"
         form="form"
         isOpen={isModalOpen}
-        title="Add New Entry"
+        footerAction={
+          selectedEntry && (
+            <ActionButtons
+              showEdit={false}
+              onDelete={() => {
+                setIsDeleteModalOpen(true);
+                handleRemoveEntry(selectedEntry?.id);
+              }}
+            />
+          )
+        }
         setIsOpen={setIsModalOpen}
-        buttonText="Save"
+        buttonText={selectedEntry ? "Update" : "Save"}
+        title={selectedEntry ? "Edit Entry" : "Add New Entry"}
       >
         <Form
+          key={selectedEntry?.id || "add"}
           form="form"
-          onSubmit={(values) => console.log(values)}
+          onSubmit={handleSave}
           className="space-y-4"
         >
-          <InputField name="institution" label="Institution Name" />
-          <InputField name="degree" label="Degree / Certification" />
-          <InputField name="duration" label="Duration" />
+          <InputField
+            name="institution"
+            label="Institution Name"
+            defaultValue={selectedEntry?.institution}
+          />
+          <InputField
+            isRequired
+            name="degree"
+            label="Degree / Certification"
+            defaultValue={selectedEntry?.degree}
+          />
+          <InputField
+            name="duration"
+            label="Duration"
+            defaultValue={selectedEntry?.duration}
+          />
         </Form>
       </Modal>
+
+      <Modal
+        type="warning"
+        buttonText="Yes"
+        title="Are you sure"
+        isOpen={isDeleteModalOpen}
+        setIsOpen={setIsDeleteModalOpen}
+        description="Are you sure you want to delete this record?"
+        onConfirm={() => {
+          setIsDeleteModalOpen(false)
+          setIsSuccessModalOpen(true)
+        }}
+      />
+
+      <Modal
+        type="success"
+        buttonText="Ok"
+        title="Success"
+        isOpen={isSuccessModalOpen}
+        setIsOpen={setIsSuccessModalOpen}
+        description="Record deleted successfully!"
+        onConfirm={() => {
+          setIsModalOpen(false);
+          setIsSuccessModalOpen(false);
+        }}
+      />
     </div>
   );
-}
+};
+
+export default EducationPage;
