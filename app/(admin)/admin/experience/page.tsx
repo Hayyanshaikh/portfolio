@@ -11,12 +11,15 @@ import DataTable, { ColumnDef } from "@/components/admin/DataTable";
 import Modal from "@/components/ui/Modal";
 import Form from "@/components/ui/Form";
 import ActionButtons from "@/components/ui/ActionButtons";
+import DateField from "@/components/ui/DateField";
 
 interface ExperienceEntry {
   id: string;
   company: string;
   role: string;
-  period: string;
+  period: string; // The formatted string for display
+  startDate: string;
+  endDate?: string;
   description: string;
   active: boolean;
 }
@@ -27,6 +30,8 @@ const initialExperience: ExperienceEntry[] = [
     company: "Viabletree",
     role: "Associate Software Engineer",
     period: "Sept 2024 — Present",
+    startDate: "2024-09-01",
+    endDate: "",
     description: "Leading the development of enterprise-level ERP modules using Next.js, TypeScript, and Ant Design. Responsible for building scalable frontend architecture, optimizing performance, and integrating backend APIs for real-time business operations.",
     active: true,
   },
@@ -35,6 +40,8 @@ const initialExperience: ExperienceEntry[] = [
     company: "Techonza Technology",
     role: "Frontend Developer",
     period: "Dec 2021 — Sept 2024",
+    startDate: "2021-12-01",
+    endDate: "2024-09-15",
     description: "Converted complex Figma designs into responsive and interactive web applications using React.js and Tailwind CSS. Built reusable component libraries, integrated REST APIs, and collaborated closely with backend teams.",
     active: false,
   },
@@ -48,6 +55,7 @@ const ExperiencePage = () => {
     null,
   );
   const [experience, setExperience] = useState<ExperienceEntry[]>([]);
+  const [isEntryActive, setIsEntryActive] = useState<boolean>(false);
 
   useEffect(() => {
     setExperience(initialExperience);
@@ -55,11 +63,13 @@ const ExperiencePage = () => {
 
   const handleAddEntryModal = () => {
     setSelectedEntry(null);
+    setIsEntryActive(false);
     setIsModalOpen(true);
   };
 
   const handleEditEntry = (entry: ExperienceEntry) => {
     setSelectedEntry(entry);
+    setIsEntryActive(entry.active);
     setIsModalOpen(true);
   };
 
@@ -68,11 +78,23 @@ const ExperiencePage = () => {
   };
 
   const handleSave = (values: Record<string, any>) => {
+    const formatDate = (dateStr: string) => {
+      if (!dateStr) return "";
+      const date = new Date(dateStr);
+      return date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+    };
+
+    const start = formatDate(values.startDate);
+    const end = !!values.active ? "Present" : formatDate(values.endDate);
+    const period = `${start} — ${end}`;
+
     const payload = {
       id: selectedEntry?.id || Math.random().toString(36).substr(2, 9),
       role: values.role || "",
-      period: values.period || "",
       company: values.company || "",
+      startDate: values.startDate || "",
+      endDate: values.endDate || "",
+      period: period,
       description: values.description || "",
       active: !!values.active,
     };
@@ -217,12 +239,35 @@ const ExperiencePage = () => {
               defaultValue={selectedEntry?.role}
             />
           </div>
-          <InputField
-            isRequired
-            name="period"
-            label="Duration (e.g., Jan 2023 — Present)"
-            defaultValue={selectedEntry?.period}
-          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
+            <DateField
+              isRequired
+              name="startDate"
+              label="Start Date"
+              defaultValue={selectedEntry?.startDate}
+            />
+            <div className="space-y-4">
+              <DateField
+                name="endDate"
+                label="End Date"
+                isDisabled={isEntryActive}
+                defaultValue={selectedEntry?.endDate}
+              />
+              <div className="flex items-center gap-2 pl-1">
+                <input
+                  type="checkbox"
+                  id="active"
+                  name="active"
+                  checked={isEntryActive}
+                  onChange={(e) => setIsEntryActive(e.target.checked)}
+                  className="w-3.5 h-3.5 rounded border-white/20 bg-transparent text-primary focus:ring-primary/20 cursor-pointer"
+                />
+                <label htmlFor="active" className="text-[10px] uppercase tracking-wider font-bold text-white/50 cursor-pointer hover:text-white/70 transition-colors">
+                  Currently working here
+                </label>
+              </div>
+            </div>
+          </div>
           <InputField
             name="description"
             label="Job Description"
@@ -230,18 +275,6 @@ const ExperiencePage = () => {
             rows={4}
             defaultValue={selectedEntry?.description}
           />
-          <div className="flex items-center gap-3 p-4 bg-white/5 rounded-lg border border-white/10">
-             <input 
-                type="checkbox" 
-                id="active" 
-                name="active" 
-                defaultChecked={selectedEntry?.active}
-                className="w-4 h-4 rounded border-white/20 bg-transparent text-primary focus:ring-primary/20"
-             />
-             <label htmlFor="active" className="text-sm font-medium text-white/70 cursor-pointer">
-                Currently working here (Active)
-             </label>
-          </div>
         </Form>
       </Modal>
 
