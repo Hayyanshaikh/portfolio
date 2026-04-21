@@ -2,19 +2,21 @@ import React from "react";
 import Link from "next/link";
 
 interface ButtonProps {
+  form?: string;
+  href?: string;
+  "data-cursor"?: string;
+  className?: string;
+  icon?: React.ReactNode;
   children: React.ReactNode;
   variant?: "solid" | "outline";
   size?: "sm" | "md" | "lg" | "full";
-  icon?: React.ReactNode;
-  href?: string;
   onClick?: (e: React.MouseEvent) => void;
-  className?: string;
   type?: "button" | "submit" | "reset";
-  "data-cursor"?: string;
   target?: "_blank" | "_self" | "_parent" | "_top";
 }
 
 const Button: React.FC<ButtonProps> = ({
+  form,
   children,
   variant = "solid",
   size = "md",
@@ -81,6 +83,7 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       type={type}
+      form={form}
       className={combinedClasses}
       onClick={onClick}
       {...props}

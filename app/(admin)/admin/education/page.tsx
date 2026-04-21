@@ -8,6 +8,8 @@ import PageHeader from "@/components/admin/PageHeader";
 import FieldGroup from "@/components/admin/FieldGroup";
 import InputField from "@/components/admin/InputField";
 import DataTable, { ColumnDef } from "@/components/admin/DataTable";
+import Modal from "@/components/ui/Modal";
+import Form from "@/components/ui/Form";
 
 interface EducationEntry {
   id: string;
@@ -32,8 +34,10 @@ const initialEducation: EducationEntry[] = [
 ];
 
 export default function EducationPage() {
-  const [isSaving, setIsSaving] = useState(false);
-  const [education, setEducation] = useState<EducationEntry[]>(initialEducation);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isSaving, setIsSaving] = useState<boolean>(false);
+  const [education, setEducation] =
+    useState<EducationEntry[]>(initialEducation);
 
   const handleSave = () => {
     setIsSaving(true);
@@ -41,24 +45,29 @@ export default function EducationPage() {
   };
 
   const handleAddEntry = () => {
-    const newEntry: EducationEntry = {
-      id: Math.random().toString(36).substr(2, 9),
-      institution: "",
-      degree: "",
-      duration: "",
-    };
-    setEducation([...education, newEntry]);
+    // const newEntry: EducationEntry = {
+    //   id: Math.random().toString(36).substr(2, 9),
+    //   institution: "",
+    //   degree: "",
+    //   duration: "",
+    // };
+    // setEducation([...education, newEntry]);
+    setIsModalOpen(true);
   };
 
   const handleRemoveEntry = (id: string) => {
     setEducation(education.filter((entry) => entry.id !== id));
   };
 
-  const handleUpdateEntry = (id: string, field: keyof EducationEntry, value: string) => {
+  const handleUpdateEntry = (
+    id: string,
+    field: keyof EducationEntry,
+    value: string,
+  ) => {
     setEducation(
       education.map((entry) =>
-        entry.id === id ? { ...entry, [field]: value } : entry
-      )
+        entry.id === id ? { ...entry, [field]: value } : entry,
+      ),
     );
   };
 
@@ -73,42 +82,15 @@ export default function EducationPage() {
     {
       key: "institution",
       header: "Institution Name",
-      render: (entry) => (
-        <input
-          type="text"
-          value={entry.institution}
-          onChange={(e) => handleUpdateEntry(entry.id, "institution", e.target.value)}
-          className="w-full bg-transparent border-b border-transparent focus:border-white/20 outline-none text-white transition-colors pb-1 placeholder:text-white/20"
-          placeholder="e.g. Aptech Learning"
-        />
-      ),
     },
     {
       key: "degree",
       header: "Degree / Certification",
-      render: (entry) => (
-        <input
-          type="text"
-          value={entry.degree}
-          onChange={(e) => handleUpdateEntry(entry.id, "degree", e.target.value)}
-          className="w-full bg-transparent border-b border-transparent focus:border-white/20 outline-none text-white transition-colors pb-1 placeholder:text-white/20"
-          placeholder="e.g. Professional Diploma"
-        />
-      ),
     },
     {
       key: "duration",
       header: "Duration",
       headerClassName: "w-40",
-      render: (entry) => (
-        <input
-          type="text"
-          value={entry.duration}
-          onChange={(e) => handleUpdateEntry(entry.id, "duration", e.target.value)}
-          className="w-full bg-transparent border-b border-transparent focus:border-white/20 outline-none text-white transition-colors pb-1 placeholder:text-white/20"
-          placeholder="e.g. 2021-2022"
-        />
-      ),
     },
     {
       key: "actions",
@@ -168,6 +150,25 @@ export default function EducationPage() {
           <DataTable columns={columns} data={education} />
         </FieldGroup>
       </div>
+
+      <Modal
+        size="xl"
+        form="form"
+        isOpen={isModalOpen}
+        title="Add New Entry"
+        setIsOpen={setIsModalOpen}
+        buttonText="Save"
+      >
+        <Form
+          form="form"
+          onSubmit={(values) => console.log(values)}
+          className="space-y-4"
+        >
+          <InputField name="institution" label="Institution Name" />
+          <InputField name="degree" label="Degree / Certification" />
+          <InputField name="duration" label="Duration" />
+        </Form>
+      </Modal>
     </div>
   );
 }

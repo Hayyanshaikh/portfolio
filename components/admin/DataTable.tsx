@@ -50,7 +50,7 @@ export default function DataTable<T>({ columns, data }: DataTableProps<T>) {
                   {columns.map((col, colIndex) => (
                     <td
                       key={col.key || colIndex}
-                      className={`px-6 py-2 ${col.cellClassName || ""}`}
+                      className={`px-6 py-2 text-sm ${col.cellClassName || ""}`}
                     >
                       {col.render
                         ? col.render(row, rowIndex)

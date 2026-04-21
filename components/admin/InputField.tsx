@@ -1,6 +1,7 @@
 import React from "react";
 
 interface InputFieldProps {
+  name: string;
   label: string;
   type?: string;
   defaultValue?: string;
@@ -10,14 +11,16 @@ interface InputFieldProps {
 }
 
 export default function InputField({
+  name,
   label,
   type = "text",
   defaultValue,
   placeholder,
   isTextArea = false,
-  rows = 4
+  rows = 4,
 }: InputFieldProps) {
-  const inputBaseClass = "w-full bg-white/5 border border-white/5 px-4 py-3 text-xs focus:outline-none focus:border-white/20 transition-all rounded-none text-white placeholder:text-muted/50";
+  const inputBaseClass =
+    "w-full bg-white/5 border border-white/5 px-4 py-3 text-xs focus:outline-none focus:border-white/20 transition-all rounded-none text-white placeholder:text-muted/50";
 
   return (
     <div className="space-y-1.5">
@@ -26,6 +29,7 @@ export default function InputField({
       </label>
       {isTextArea ? (
         <textarea
+          name={name}
           rows={rows}
           defaultValue={defaultValue}
           placeholder={placeholder}
@@ -33,6 +37,7 @@ export default function InputField({
         />
       ) : (
         <input
+          name={name}
           type={type}
           defaultValue={defaultValue}
           placeholder={placeholder}
