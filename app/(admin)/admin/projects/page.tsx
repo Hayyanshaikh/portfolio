@@ -73,7 +73,7 @@ const ProjectsPage = () => {
 
   const handleSave = (values: Record<string, any>) => {
     // Process tags: convert comma-separated string to array
-    const tagsArray = typeof values.tags === 'string' 
+    const tagsArray = typeof values.tags === 'string'
       ? values.tags.split(',').map(tag => tag.trim()).filter(tag => tag !== "")
       : (Array.isArray(values.tags) ? values.tags : []);
 
@@ -116,15 +116,15 @@ const ProjectsPage = () => {
       header: "Version/Badge",
       render: (entry) => (
         <div className="flex items-center gap-2">
-            {entry.badge ? (
-                <span className="px-2 py-0.5 bg-white/5 text-[9px] font-bold uppercase rounded border border-white/10">
-                    {entry.badge}
-                </span>
-            ) : (
-                <span className="text-[10px] font-mono text-white/40 uppercase">
-                    {entry.version || "n/a"}
-                </span>
-            )}
+          {entry.badge ? (
+            <span className="px-2 py-0.5 bg-white/5 text-[9px] font-bold uppercase rounded border border-white/10">
+              {entry.badge}
+            </span>
+          ) : (
+            <span className="text-[10px] font-mono text-white/40 uppercase">
+              {entry.version || "n/a"}
+            </span>
+          )}
         </div>
       )
     },
@@ -190,7 +190,7 @@ const ProjectsPage = () => {
       </Form>
 
       <Modal
-        size="2xl"
+        size="xl"
         form="form"
         isOpen={isModalOpen}
         footerAction={
@@ -227,7 +227,7 @@ const ProjectsPage = () => {
               defaultValue={selectedEntry?.category}
             />
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <InputField
               name="version"
