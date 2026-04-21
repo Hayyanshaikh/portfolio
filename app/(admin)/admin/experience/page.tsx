@@ -111,7 +111,6 @@ const ExperiencePage = () => {
     {
       key: "sno",
       header: "S.No",
-      headerClassName: "w-16",
       cellClassName: "text-sm font-mono text-muted",
       render: (_, index) => String(index + 1).padStart(2, "0"),
     },
@@ -126,22 +125,20 @@ const ExperiencePage = () => {
     {
       key: "period",
       header: "Duration",
-      headerClassName: "w-48",
     },
     {
-        key: "status",
-        header: "Status",
-        headerClassName: "w-24",
-        render: (entry) => (
-            <span className={`px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded ${entry.active ? 'bg-green-500/10 text-green-500' : 'bg-white/5 text-white/40'}`}>
-                {entry.active ? 'Active' : 'Past'}
-            </span>
-        )
+      key: "status",
+      header: "Status",
+      render: (entry) => (
+        <span className={`px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded ${entry.active ? 'bg-green-500/10 text-green-500' : 'bg-white/5 text-white/40'}`}>
+          {entry.active ? 'Active' : 'Past'}
+        </span>
+      )
     },
     {
       key: "actions",
       header: "Actions",
-      headerClassName: "text-right w-24",
+      headerClassName: "text-right",
       cellClassName: "text-right",
       render: (entry) => (
         <ActionButtons
@@ -239,33 +236,42 @@ const ExperiencePage = () => {
               defaultValue={selectedEntry?.role}
             />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <DateField
               isRequired
               name="startDate"
               label="Start Date"
               defaultValue={selectedEntry?.startDate}
             />
-            <div className="space-y-4">
-              <DateField
-                name="endDate"
-                label="End Date"
-                isDisabled={isEntryActive}
-                defaultValue={selectedEntry?.endDate}
+            <DateField
+              name="endDate"
+              label="End Date"
+              isDisabled={isEntryActive}
+              defaultValue={selectedEntry?.endDate}
+            />
+          </div>
+
+          <div
+            onClick={() => setIsEntryActive(!isEntryActive)}
+            className={`flex items-center justify-between p-4 rounded-xl border transition-all cursor-pointer ${isEntryActive
+              ? "bg-white/10 border-white/30"
+              : "border-white/20 hover:bg-white/10"
+              }`}
+          >
+            <div className="flex flex-col gap-0.5">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-white/90">Work Status</span>
+              <span className="text-[11px] text-white/50 font-medium">I am currently working in this role</span>
+            </div>
+            <div className={`w-10 h-5 rounded-full relative transition-colors ${isEntryActive ? "bg-black/40" : "bg-white/10"}`}>
+              <div className={`absolute top-1 w-3 h-3 bg-white rounded-full transition-all ${isEntryActive ? "right-1" : "left-1"}`} />
+              <input
+                type="checkbox"
+                id="active"
+                name="active"
+                checked={isEntryActive}
+                onChange={(e) => setIsEntryActive(e.target.checked)}
+                className="sr-only"
               />
-              <div className="flex items-center gap-2 pl-1">
-                <input
-                  type="checkbox"
-                  id="active"
-                  name="active"
-                  checked={isEntryActive}
-                  onChange={(e) => setIsEntryActive(e.target.checked)}
-                  className="w-3.5 h-3.5 rounded border-white/20 bg-transparent text-primary focus:ring-primary/20 cursor-pointer"
-                />
-                <label htmlFor="active" className="text-[10px] uppercase tracking-wider font-bold text-white/50 cursor-pointer hover:text-white/70 transition-colors">
-                  Currently working here
-                </label>
-              </div>
             </div>
           </div>
           <InputField
