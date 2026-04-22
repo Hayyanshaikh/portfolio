@@ -11,6 +11,8 @@ import DataTable, { ColumnDef } from "@/components/admin/DataTable";
 import Modal from "@/components/ui/Modal";
 import Form from "@/components/ui/Form";
 import ActionButtons from "@/components/ui/ActionButtons";
+import MultiSelectField from "@/components/ui/MultiSelectField";
+import { initialSkills } from "@/app/data/skills";
 
 interface ProjectEntry {
   id: string;
@@ -72,10 +74,19 @@ const ProjectsPage = () => {
   };
 
   const handleSave = (values: Record<string, any>) => {
-    // Process tags: convert comma-separated string to array
-    const tagsArray = typeof values.tags === 'string'
-      ? values.tags.split(',').map(tag => tag.trim()).filter(tag => tag !== "")
-      : (Array.isArray(values.tags) ? values.tags : []);
+    // Process tags: if it's a JSON string from MultiSelectField, parse it
+    let tagsArray: string[] = [];
+    try {
+      if (typeof values.tags === 'string' && values.tags.startsWith('[')) {
+        tagsArray = JSON.parse(values.tags);
+      } else if (typeof values.tags === 'string') {
+        tagsArray = values.tags.split(',').map(tag => tag.trim()).filter(tag => tag !== "");
+      } else if (Array.isArray(values.tags)) {
+        tagsArray = values.tags;
+      }
+    } catch (e) {
+      tagsArray = [];
+    }
 
     const payload: ProjectEntry = {
       id: selectedEntry?.id || Math.random().toString(36).substr(2, 9),
@@ -242,11 +253,11 @@ const ProjectsPage = () => {
             />
           </div>
 
-          <InputField
+          <MultiSelectField
             name="tags"
-            label="Tech Stack (Comma-separated)"
-            defaultValue={selectedEntry?.tags.join(", ")}
-            placeholder="Next.js, Tailwind, Prisma"
+            label="Tech Stack"
+            defaultValue={selectedEntry?.tags}
+            options={initialSkills.map((s) => ({ label: s.label, value: s.label }))}
           />
 
           <InputField

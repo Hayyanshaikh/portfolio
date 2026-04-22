@@ -11,22 +11,7 @@ import Modal from "@/components/ui/Modal";
 import Form from "@/components/ui/Form";
 import ActionButtons from "@/components/ui/ActionButtons";
 
-interface SkillEntry {
-  id: string;
-  label: string;
-  icon: string;
-}
-
-const initialSkills: SkillEntry[] = [
-  { id: "1", label: "HTML", icon: "Html" },
-  { id: "2", label: "CSS", icon: "Css" },
-  { id: "3", label: "JavaScript", icon: "JavaScript" },
-  { id: "4", label: "TypeScript", icon: "TypeScript" },
-  { id: "5", label: "React.js", icon: "ReactJs" },
-  { id: "6", label: "Next.js", icon: "NextJs" },
-  { id: "7", label: "Tailwind CSS", icon: "Tailwind" },
-  { id: "8", label: "Node.js", icon: "NodeJs" },
-];
+import { initialSkills, SkillEntry } from "@/app/data/skills";
 
 const SkillsPage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
