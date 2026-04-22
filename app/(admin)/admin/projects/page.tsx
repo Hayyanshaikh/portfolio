@@ -11,7 +11,7 @@ import DataTable, { ColumnDef } from "@/components/admin/DataTable";
 import Modal from "@/components/ui/Modal";
 import Form from "@/components/ui/Form";
 import ActionButtons from "@/components/ui/ActionButtons";
-import MultiSelectField from "@/components/ui/MultiSelectField";
+import SelectField from "@/components/ui/SelectField";
 import { initialSkills } from "@/app/data/skills";
 
 interface ProjectEntry {
@@ -253,7 +253,8 @@ const ProjectsPage = () => {
             />
           </div>
 
-          <MultiSelectField
+          <SelectField
+            isMulti
             name="tags"
             label="Tech Stack"
             defaultValue={selectedEntry?.tags}
