@@ -34,7 +34,7 @@ const initialEducation: EducationEntry[] = [
 ];
 
 const EducationPage = () => {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState<boolean>(false);
   const [selectedEntry, setSelectedEntry] = useState<EducationEntry | null>(
@@ -139,7 +139,7 @@ const EducationPage = () => {
         }
       />
 
-      <Form form="sectionForm" onSubmit={() => { }} className="space-y-6">
+      <Form form="sectionForm" onSubmit={() => {}} className="space-y-6">
         {/* Section Settings */}
         <InputField
           isRequired
@@ -219,8 +219,8 @@ const EducationPage = () => {
         setIsOpen={setIsDeleteModalOpen}
         description="Are you sure you want to delete this record?"
         onConfirm={() => {
-          setIsDeleteModalOpen(false)
-          setIsSuccessModalOpen(true)
+          setIsDeleteModalOpen(false);
+          setIsSuccessModalOpen(true);
         }}
       />
 
