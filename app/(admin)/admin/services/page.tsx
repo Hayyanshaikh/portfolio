@@ -227,6 +227,7 @@ const ServicesPage = () => {
           />
           <InputField
             isRequired
+            isTextArea={true}
             name="description"
             label="Service Description"
             defaultValue={selectedEntry?.description}

@@ -217,6 +217,7 @@ const TestimonialsPage = () => {
           />
           <InputField
             isRequired
+            isTextArea={true}
             name="quote"
             label="Testimonial Quote"
             defaultValue={selectedEntry?.quote}
