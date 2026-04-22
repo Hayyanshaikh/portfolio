@@ -27,34 +27,49 @@ export default function SelectField({
     return Array.isArray(defaultValue) ? defaultValue : [defaultValue];
   });
   const [isOpen, setIsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!defaultValue) setSelected([]);
-    else setSelected(Array.isArray(defaultValue) ? defaultValue : [defaultValue]);
+    else
+      setSelected(Array.isArray(defaultValue) ? defaultValue : [defaultValue]);
   }, [defaultValue]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
+        setSearchTerm("");
       }
     };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
 
   const toggleOption = (e: React.MouseEvent, value: string) => {
-    e.stopPropagation(); // Prevent the parent div from toggling the dropdown
-    
+    e.stopPropagation();
+
     if (isMulti) {
-      const newSelected = selected.includes(value)
+      const isSelected = selected.includes(value);
+      const newSelected = isSelected
         ? selected.filter((v) => v !== value)
         : [...selected, value];
       setSelected(newSelected);
+      setSearchTerm(""); // Reset search after select
     } else {
       setSelected([value]);
       setIsOpen(false);
+      setSearchTerm("");
     }
   };
 
@@ -63,8 +78,16 @@ export default function SelectField({
     setSelected(selected.filter((v) => v !== value));
   };
 
+  const filteredOptions = options.filter((opt) =>
+    opt.label.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   const displayValue = isMulti ? selected : selected[0];
-  const formValue = isMulti ? (selected.length === 0 ? "" : JSON.stringify(selected)) : selected[0] || "";
+  const formValue = isMulti
+    ? selected.length === 0
+      ? ""
+      : JSON.stringify(selected)
+    : selected[0] || "";
 
   return (
     <div className="vertical-field space-y-1.5 relative" ref={containerRef}>
@@ -82,7 +105,7 @@ export default function SelectField({
 
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-[#0A0A0A] border border-white/5 hover:border-white/20 px-4 py-2 min-h-[46px] text-xs outline-none transition-all text-white flex flex-wrap gap-2 items-center cursor-pointer shadow-lg"
+        className="w-full bg-white/5 border border-white/5 hover:border-white/20 px-4 py-2 min-h-[46px] text-xs outline-none transition-all text-white flex flex-wrap gap-2 items-center cursor-pointer shadow-lg"
       >
         {selected.length > 0 ? (
           selected.map((val) => (
@@ -100,37 +123,55 @@ export default function SelectField({
             </span>
           ))
         ) : (
-          <span className="text-white/20 tracking-wider italic">{placeholder}</span>
+          <span className="text-white/20 tracking-wider">{placeholder}</span>
         )}
-        <HiChevronDown className={`ml-auto text-white/40 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`} />
+        <HiChevronDown
+          className={`ml-auto text-white/40 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+        />
       </div>
 
       {isOpen && (
-        <div 
-          className="absolute z-[100] top-[calc(100%+4px)] left-0 w-full bg-[#111111] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] max-h-60 overflow-y-auto custom-scrollbar animate-reveal backdrop-blur-md rounded-sm"
+        <div
+          className="absolute z-[100] top-[calc(100%+4px)] left-0 w-full bg-[#111111] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] max-h-72 overflow-hidden flex flex-col animate-reveal backdrop-blur-md rounded-sm"
           onClick={(e) => e.stopPropagation()} // Prevent closing when clicking the container itself
         >
-          {options.length > 0 ? (
-            options.map((option) => {
-              const isSelected = selected.includes(option.value);
-              return (
-                <div
-                  key={option.value}
-                  onClick={(e) => toggleOption(e, option.value)}
-                  className={`px-4 py-3 text-[11px] font-medium flex justify-between items-center cursor-pointer transition-all border-b border-white/[0.02] last:border-0 ${
-                    isSelected 
-                      ? "bg-white/10 text-white" 
-                      : "text-white/40 hover:bg-white/5 hover:text-white"
-                  }`}
-                >
-                  {option.label}
-                  {isSelected && <HiCheck className="text-white" />}
-                </div>
-              );
-            })
-          ) : (
-            <div className="px-4 py-3 text-xs text-white/20 italic">No options available</div>
-          )}
+          {/* Search Input */}
+          <div className="p-2 border-b border-white/5 bg-white/5">
+            <input
+              autoFocus
+              type="text"
+              placeholder="Search..."
+              className="w-full bg-black/40 border border-white/5 px-3 py-2 text-[10px] outline-none text-white focus:border-white/20 transition-all placeholder:text-white/10"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+
+          <div className="flex-1 overflow-y-auto custom-scrollbar max-h-60">
+            {filteredOptions.length > 0 ? (
+              filteredOptions.map((option) => {
+                const isSelected = selected.includes(option.value);
+                return (
+                  <div
+                    key={option.value}
+                    onClick={(e) => toggleOption(e, option.value)}
+                    className={`px-4 py-3 text-[11px] font-medium flex justify-between items-center cursor-pointer transition-all border-b border-white/[0.02] last:border-0 ${
+                      isSelected
+                        ? "bg-white/10 text-white"
+                        : "text-white/40 hover:bg-white/5 hover:text-white"
+                    }`}
+                  >
+                    {option.label}
+                    {isSelected && <HiCheck className="text-white" />}
+                  </div>
+                );
+              })
+            ) : (
+              <div className="px-4 py-3 text-xs text-white/20 italic">
+                No matching results
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>

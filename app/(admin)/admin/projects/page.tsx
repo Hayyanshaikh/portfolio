@@ -123,8 +123,8 @@ const ProjectsPage = () => {
       header: "Category",
     },
     {
-      key: "version",
-      header: "Version/Badge",
+      key: "badge",
+      header: "Badge",
       render: (entry) => (
         <div className="flex items-center gap-2">
           {entry.badge ? (
@@ -133,7 +133,7 @@ const ProjectsPage = () => {
             </span>
           ) : (
             <span className="text-[10px] font-mono text-white/40 uppercase">
-              {entry.version || "n/a"}
+              —
             </span>
           )}
         </div>
