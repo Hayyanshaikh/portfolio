@@ -19,7 +19,7 @@ const ProjectCard = ({ project, index }: Props) => {
   return (
     <div
       data-cursor="hover"
-      className="glass-card p-8 flex flex-col justify-between reveal"
+      className="glass-card p-8 flex flex-col justify-between h-full reveal"
       style={{ transitionDelay: `${index * 0.1}s` }}
     >
       <div>

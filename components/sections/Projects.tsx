@@ -1,5 +1,18 @@
-import { FaGraduationCap, FaRobot, FaShieldAlt } from "react-icons/fa";
+"use client";
+import { useState } from "react";
+import type { Swiper as SwiperType } from "swiper";
+
+import {
+  FaGraduationCap,
+  FaRobot,
+  FaShieldAlt,
+  FaChevronLeft,
+  FaChevronRight,
+} from "react-icons/fa";
 import ProjectCard from "../cards/ProjectCard";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
+import "swiper/css";
 
 const projects = [
   {
@@ -35,17 +48,72 @@ const projects = [
 ];
 
 export default function Projects() {
+  const [swiperRef, setSwiperRef] = useState<SwiperType | null>(null);
+
   return (
     <section id="projects" className="max-w-7xl mx-auto py-32 px-8 relative">
-      <h2 className="font-heading text-5xl md:text-7xl font-bold uppercase mb-24 tracking-tighter">
-        Selected <br />
-        Projects.
-      </h2>
+      <div className="flex items-center justify-between">
+        <h2 className="font-heading text-5xl md:text-7xl font-bold uppercase mb-24 tracking-tighter">
+          Selected <br />
+          Projects.
+        </h2>
 
-      <div className="grid lg:grid-cols-3 gap-8">
+        <div className="gap-4 justify-end hidden md:flex">
+          <button
+            onClick={() => swiperRef?.slidePrev()}
+            className="projects-prev w-12 h-12 flex items-center justify-center rounded-full border border-white/20 hover:bg-white/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+          >
+            <FaChevronLeft className="text-white" />
+          </button>
+          <button
+            onClick={() => swiperRef?.slideNext()}
+            className="projects-next w-12 h-12 flex items-center justify-center rounded-full border border-white/20 hover:bg-white/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+          >
+            <FaChevronRight className="text-white" />
+          </button>
+        </div>
+      </div>
+
+      <Swiper
+        onSwiper={setSwiperRef}
+        modules={[Autoplay]}
+        spaceBetween={32}
+        slidesPerView={1}
+        speed={1200}
+        breakpoints={{
+          640: {
+            slidesPerView: 1,
+          },
+          768: {
+            slidesPerView: 2,
+          },
+          1024: {
+            slidesPerView: 3,
+          },
+        }}
+        autoplay={{ delay: 5000, disableOnInteraction: false }}
+        className="projects-swiper !pb-16"
+      >
         {projects.map((project, index) => (
-          <ProjectCard key={index} project={project} index={index} />
+          <SwiperSlide key={index} className="h-auto">
+            <ProjectCard project={project} index={index} />
+          </SwiperSlide>
         ))}
+      </Swiper>
+
+      <div className="flex gap-4 mt-8 justify-center md:hidden">
+        <button
+          onClick={() => swiperRef?.slidePrev()}
+          className="projects-prev w-12 h-12 flex items-center justify-center rounded-full border border-white/20 hover:bg-white/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+        >
+          <FaChevronLeft className="text-white" />
+        </button>
+        <button
+          onClick={() => swiperRef?.slideNext()}
+          className="projects-next w-12 h-12 flex items-center justify-center rounded-full border border-white/20 hover:bg-white/10 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+        >
+          <FaChevronRight className="text-white" />
+        </button>
       </div>
     </section>
   );
