@@ -25,7 +25,7 @@ export default function Hero() {
           </span>
         </div>
 
-        <h1 className="font-heading text-5xl md:text-8xl lg:text-[8vw] font-bold leading-[0.85] tracking-tighter uppercase mb-12">
+        <h1 className="font-heading text-5xl md:text-8xl lg:text-[120px] font-bold leading-[0.85] tracking-tighter uppercase mb-12">
           BUILDING <span className="text-stroke">SCALABLE</span> <br />
           DIGITAL ECOSYSTEMS.
         </h1>
