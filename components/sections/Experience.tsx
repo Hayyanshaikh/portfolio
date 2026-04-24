@@ -5,24 +5,33 @@ const experiences = [
     period: "Sept 2024 — Present",
     company: "Viabletree",
     role: "Associate Software Engineer",
-    description:
-      "Leading the development of enterprise-level ERP modules using Next.js, TypeScript, and Ant Design. Responsible for building scalable frontend architecture, optimizing performance, and integrating backend APIs for real-time business operations. Improved system efficiency and UI responsiveness across multiple enterprise dashboards.",
+    description: [
+      "Leading development of 10+ enterprise ERP modules using Next.js, TypeScript, and Ant Design.",
+      "Built scalable frontend architecture reducing API response handling time by 35%.",
+      "Improved UI responsiveness across 5+ enterprise dashboards by optimizing component rendering.",
+    ],
     active: true,
   },
   {
     period: "Dec 2021 — Sept 2024",
     company: "Techonza Technology",
     role: "Frontend Developer",
-    description:
-      "Converted complex Figma designs into responsive and interactive web applications using React.js and Tailwind CSS. Built reusable component libraries, integrated REST APIs, and collaborated closely with backend teams to deliver production-grade SaaS products.",
+    description: [
+      "Converted 20+ Figma designs into responsive web apps using React.js and Tailwind CSS.",
+      "Built reusable component library of 30+ components, reducing development time by 40%.",
+      "Integrated 15+ REST APIs with backend teams to deliver production-grade SaaS products.",
+    ],
     active: false,
   },
   {
     period: "Jun 2021 — Nov 2021",
     company: "Freelance Projects",
     role: "Web Developer",
-    description:
-      "Worked on multiple freelance projects including business websites, dashboards, and landing pages. Focused on performance optimization, SEO improvements, and responsive UI development using modern frontend technologies.",
+    description: [
+      "Delivered 10+ freelance projects including business websites, dashboards, and landing pages.",
+      "Improved page load speed by 50% through performance optimization and lazy loading techniques.",
+      "Achieved top Google rankings for 3+ client websites through SEO improvements.",
+    ],
     active: false,
   },
 ];
@@ -35,7 +44,7 @@ export default function Experience() {
         Career Roadmap.
       </h2>
 
-      <div className="space-y-16">
+      <div className="space-y-12">
         {experiences.map((exp, index) => (
           <ExperienceCard key={index} exp={exp} index={index} />
         ))}

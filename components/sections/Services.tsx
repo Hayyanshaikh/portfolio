@@ -6,25 +6,25 @@ const services = [
   {
     title: "Enterprise ERP Solutions",
     description:
-      "Architecting scalable and robust ERP modules that streamline complex business processes and real-time operations.",
+      "Scalable ERP modules for streamlined business workflows and real-time operations.",
     icon: <FaLayerGroup className="w-8 h-8" />,
   },
   {
     title: "Full-Stack Development",
     description:
-      "Building production-grade SaaS applications from scratch using modern tech stacks like Next.js, Node.js, and TypeScript.",
+      "Production-ready SaaS applications using Next.js, Node.js, and TypeScript.",
     icon: <FaCode className="w-8 h-8" />,
   },
   {
     title: "Performance Optimization",
     description:
-      "Enhancing web performance through advanced code-splitting, lazy loading, and efficient API orchestration.",
+      "Improving speed with code-splitting, lazy loading, and API optimization.",
     icon: <FaRocket className="w-8 h-8" />,
   },
   {
-    title: "Custom UI/UX Implementation",
+    title: "UI/UX Implementation",
     description:
-      "Translating complex Figma designs into interactive, pixel-perfect, and highly responsive user interfaces.",
+      "Pixel-perfect conversion of Figma designs into responsive interfaces.",
     icon: <FaTerminal className="w-8 h-8" />,
   },
 ];

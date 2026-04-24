@@ -26,38 +26,38 @@ type Skill = {
 };
 const skills: Skill[] = [
   // Core Web
-  { icon: <Image svg={Html} size={24} />, label: "HTML" },
-  { icon: <Image svg={Css} size={24} />, label: "CSS" },
-  { icon: <Image svg={JavaScript} size={24} />, label: "JavaScript" },
-  { icon: <Image svg={JQuery} size={24} />, label: "jQuery" },
-  { icon: <Image svg={TypeScript} size={24} />, label: "TypeScript" },
+  { icon: <Image svg={Html} size={40} />, label: "HTML" },
+  { icon: <Image svg={Css} size={40} />, label: "CSS" },
+  { icon: <Image svg={JavaScript} size={40} />, label: "JavaScript" },
+  { icon: <Image svg={JQuery} size={40} />, label: "jQuery" },
+  { icon: <Image svg={TypeScript} size={40} />, label: "TypeScript" },
 
   // Frontend Frameworks
-  { icon: <Image svg={ReactJs} size={24} />, label: "React.js" },
-  { icon: <Image svg={NextJs} size={24} />, label: "Next.js" },
+  { icon: <Image svg={ReactJs} size={40} />, label: "React.js" },
+  { icon: <Image svg={NextJs} size={40} />, label: "Next.js" },
 
   // Styling / UI
-  { icon: <Image svg={Tailwind} size={24} />, label: "Tailwind CSS" },
-  { icon: <Image svg={ShadCN} size={24} />, label: "ShadCN UI" },
-  { icon: <Image svg={AntDesign} size={24} />, label: "Ant Design" },
+  { icon: <Image svg={Tailwind} size={40} />, label: "Tailwind CSS" },
+  { icon: <Image svg={ShadCN} size={40} />, label: "ShadCN UI" },
+  { icon: <Image svg={AntDesign} size={40} />, label: "Ant Design" },
 
   // Backend
-  { icon: <Image svg={NodeJs} size={24} />, label: "Node.js" },
-  { icon: <Image svg={NestJs} size={24} />, label: "NestJS" },
+  { icon: <Image svg={NodeJs} size={40} />, label: "Node.js" },
+  { icon: <Image svg={NestJs} size={40} />, label: "NestJS" },
 
   // Database / ORM
-  { icon: <Image svg={Prisma} size={24} />, label: "Prisma ORM" },
-  { icon: <Image svg={PostgreSQL} size={24} />, label: "PostgreSQL" },
+  { icon: <Image svg={Prisma} size={40} />, label: "Prisma ORM" },
+  { icon: <Image svg={PostgreSQL} size={40} />, label: "PostgreSQL" },
 
   // Dev Tools
-  { icon: <Image svg={Git} size={24} />, label: "Git" },
-  { icon: <Image svg={Github} size={24} />, label: "GitHub" },
+  { icon: <Image svg={Git} size={40} />, label: "Git" },
+  { icon: <Image svg={Github} size={40} />, label: "GitHub" },
 
   // APIs / Docs
-  { icon: <Image svg={Swagger} size={24} />, label: "Swagger" },
+  { icon: <Image svg={Swagger} size={40} />, label: "Swagger" },
 
   // CMS
-  { icon: <Image svg={WordPress} size={24} />, label: "WordPress" },
+  { icon: <Image svg={WordPress} size={40} />, label: "WordPress" },
 ];
 
 export default function Skills() {
@@ -79,7 +79,7 @@ export default function Skills() {
           >
             {skill.icon}
 
-            <span className="text-[10px] font-bold uppercase tracking-widest">
+            <span className="text-xs font-semibold uppercase tracking-widest">
               {skill.label}
             </span>
           </div>

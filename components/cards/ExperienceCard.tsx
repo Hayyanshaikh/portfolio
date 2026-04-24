@@ -5,7 +5,7 @@ type Experience = {
   period: string;
   company: string;
   role: string;
-  description: string;
+  description: string[];
   active: boolean;
 };
 
@@ -23,7 +23,7 @@ const ExperienceCard = ({ exp, index }: Props) => {
   return (
     <div
       key={index}
-      className="reveal flex flex-col md:flex-row gap-12 border-b border-white/5 pb-16 relative"
+      className="reveal flex flex-col md:flex-row gap-12 border-b border-white/5 pb-6 relative"
       style={{ transitionDelay: `${index * 0.1}s` }}
     >
       <div className="md:w-1/3">
@@ -46,7 +46,11 @@ const ExperienceCard = ({ exp, index }: Props) => {
         <h4 className="text-xl font-bold uppercase mb-6 flex items-center gap-3">
           {exp.role}
         </h4>
-        <p className="text-white leading-relaxed mb-8">{exp.description}</p>
+        <ul className="list-disc list-outside ml-5 text-white/80 leading-relaxed space-y-2 mb-8">
+          {exp.description.map((point, i) => (
+            <li key={i}>{point}</li>
+          ))}
+        </ul>
       </div>
     </div>
   );
