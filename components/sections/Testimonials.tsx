@@ -27,7 +27,7 @@ export default function Testimonials() {
     <section className="max-w-7xl mx-auto py-32 px-8">
       <h2 className="font-heading text-4xl font-bold uppercase mb-20 flex items-center gap-4">
         <BsShieldCheck className="w-8 h-8" />
-        Trust Manifest.
+        Testimonials.
       </h2>
 
       <div className="grid md:grid-cols-3 gap-16">

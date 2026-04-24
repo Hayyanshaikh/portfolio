@@ -49,8 +49,8 @@ export default function Contact() {
         {/* Left Side */}
         <div className="reveal">
           <h2 className="font-heading text-7xl md:text-9xl font-bold uppercase tracking-tighter leading-[0.8] mb-12">
-            Talk <br />
-            Now.
+            Contact <br />
+            ME.
           </h2>
 
           <div className="space-y-12">

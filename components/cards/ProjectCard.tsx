@@ -19,23 +19,23 @@ const ProjectCard = ({ project, index }: Props) => {
   return (
     <div
       data-cursor="hover"
-      className="glass-card p-10 flex flex-col justify-between reveal"
+      className="glass-card p-8 flex flex-col justify-between reveal"
       style={{ transitionDelay: `${index * 0.1}s` }}
     >
       <div>
         <div className="project-visual">{project.icon}</div>
 
         <div className="flex justify-between items-start mb-8">
-          <span className="px-3 py-1 border border-white/10 text-[9px] font-bold uppercase">
+          <span className="px-3 pt-2 pb-1.5 border border-white/10 text-xs font-semibold uppercase">
             {project.category}
           </span>
 
           {project.badge ? (
-            <span className="px-2 py-1 bg-white/10 text-[8px] font-bold uppercase">
+            <span className="px-2 pt-2 pb-1.5 bg-white/10 text-xs font-semibold uppercase">
               {project.badge}
             </span>
           ) : (
-            <span className="text-[9px] font-bold text-white/30 uppercase">
+            <span className="text-xs font-medium text-white/30 uppercase">
               {project.version}
             </span>
           )}
@@ -55,7 +55,7 @@ const ProjectCard = ({ project, index }: Props) => {
         {project.tags.map((tag, i) => (
           <span
             key={i}
-            className="flex items-center gap-2 text-[8px] font-black uppercase text-white/40"
+            className="flex items-center gap-2 text-xs font-semibold uppercase text-white/40"
           >
             {tag}
             {i === project.tags.length - 1 ? null : (

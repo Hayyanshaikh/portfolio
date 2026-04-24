@@ -17,6 +17,7 @@ body {
   width: 100%;
   overflow-x: hidden;
 }
+
 ::-webkit-scrollbar {
   display: none;
 }
@@ -161,11 +162,11 @@ body {
 
 @keyframes slide {
   from {
-    transform: rotate(-45deg) translateY(-100px);
+    transform: rotate(-45deg) translateY(-200px);
   }
 
   to {
-    transform: rotate(-45deg) translateY(100px);
+    transform: rotate(-45deg) translateY(200px);
   }
 }
 
@@ -265,7 +266,7 @@ body {
 
 /* Project visual placeholder */
 .project-visual {
-  height: 120px;
+  height: 200px;
   width: 100%;
   background: #111;
   margin-bottom: 24px;
@@ -284,7 +285,7 @@ body {
   height: 2px;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
   transform: rotate(-45deg);
-  animation: slide 3s infinite linear;
+  animation: slide 5s infinite linear;
 }
 
 .text-muted {

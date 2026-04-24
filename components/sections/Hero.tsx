@@ -52,7 +52,7 @@ export default function Hero() {
                 </Link>
               ))}
             </div>
-            <div className="flex items-center gap-2 text-[9px] font-bold uppercase tracking-widest">
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
               <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.5)]"></span>
               Open for strategic partnerships 2026
             </div>

@@ -39,7 +39,7 @@ export default function Projects() {
     <section id="projects" className="max-w-7xl mx-auto py-32 px-8 relative">
       <h2 className="font-heading text-5xl md:text-7xl font-bold uppercase mb-24 tracking-tighter">
         Selected <br />
-        Registry.
+        Projects.
       </h2>
 
       <div className="grid lg:grid-cols-3 gap-8">
