@@ -1,0 +1,14 @@
+npx tsc --noEmit || {
+  echo ""
+  echo "╔════════════════════════════════════════╗"
+  echo "║   ❌ COMMIT ROKA GAYA!                 ║"
+  echo "║   TypeScript errors hain bhai...       ║"
+  echo "║   Pehle fix karo, phir commit karna!   ║"
+  echo "╚════════════════════════════════════════╝"
+  echo ""
+  exit 1
+}
+
+echo ""
+echo "✅ Sab theek hai! Commit ho raha hai... 🚀"
+echo ""

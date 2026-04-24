@@ -41,8 +41,13 @@ export default function SettingsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Personal Details */}
         <FieldGroup title="Personal Assets" icon={MdPerson}>
-          <InputField label="Universal Name" defaultValue="Hayyan Ali" />
           <InputField
+            name="universalName"
+            label="Universal Name"
+            defaultValue="Hayyan Ali"
+          />
+          <InputField
+            name="professionalRole"
             label="Professional Role"
             defaultValue="Software Engineer"
           />
@@ -51,11 +56,13 @@ export default function SettingsPage() {
         {/* Contact Matrix */}
         <FieldGroup title="Contact Matrix" icon={MdContactPhone}>
           <InputField
+            name="electronicMail"
             label="Electronic Mail"
             type="email"
             defaultValue="hayyanshaikh55@gmail.com"
           />
           <InputField
+            name="directCommunication"
             label="Direct Communication (Phone)"
             defaultValue="+92 317 2271459"
           />
@@ -64,10 +71,12 @@ export default function SettingsPage() {
         {/* Global SEO */}
         <FieldGroup title="Registry & SEO" icon={MdLanguage}>
           <InputField
+            name="registryTitle"
             label="Registry Title"
             defaultValue="Hayyan Ali | Software Engineer Portfolio"
           />
           <InputField
+            name="registryDescription"
             rows={6}
             isTextArea
             label="Registry Description"
@@ -78,14 +87,17 @@ export default function SettingsPage() {
         {/* Social Connections */}
         <FieldGroup title="Social Connections" icon={MdShare}>
           <InputField
+            name="gitHubPath"
             label="GitHub Path"
             defaultValue="https://github.com/hayyanshaikh"
           />
           <InputField
+            name="linkedInPath"
             label="LinkedIn Path"
             defaultValue="https://www.linkedin.com/in/hayyan-shaikh"
           />
           <InputField
+            name="whatsAppInterface"
             label="WhatsApp Interface"
             defaultValue="https://api.whatsapp.com/send/?phone=923172271459"
           />

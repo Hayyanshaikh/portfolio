@@ -104,6 +104,7 @@ export default function BrandsPage() {
       <div className="space-y-6">
         {/* Section Settings */}
         <InputField
+          name="sectionHeading"
           label="Section Heading"
           defaultValue="Trusted by & Collaborated with"
         />
