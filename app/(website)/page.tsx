@@ -4,7 +4,8 @@ import { useReveal } from "@/components/useReveal";
 import Navbar from "@/components/sections/Navbar";
 import Hero from "@/components/sections/Hero";
 import Brands from "@/components/sections/Brands";
-import Summary from "@/components/sections/Summary";
+import About from "@/components/sections/About";
+import Education from "@/components/sections/Education";
 import Experience from "@/components/sections/Experience";
 import Services from "@/components/sections/Services";
 import Skills from "@/components/sections/Skills";
@@ -34,7 +35,8 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Brands />
-      <Summary />
+      <About />
+      {/* <Education /> */}
       <Experience />
       <Services />
       <Skills />
